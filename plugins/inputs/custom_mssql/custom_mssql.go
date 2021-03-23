@@ -2,6 +2,7 @@ package custom_mssql
 
 import (
 	"database/sql"
+	"context"
 	"fmt"
 	"log"
 	"sync"
@@ -53,6 +54,7 @@ func (s *CustomMssql) Gather(acc telegraf.Accumulator) error {
 	query := Query{ScriptName: "SQLServerLogBackupSize-CustomMssql", Script: sqlServerLogBackupSize, ResultByRow: false}
 
 	for _, server := range s.Servers {
+		acc.AddError(s.checkServer(server, acc))
 		wg.Add(1)
 		go func(serv string, query Query) {
 			defer wg.Done()
@@ -63,6 +65,32 @@ func (s *CustomMssql) Gather(acc telegraf.Accumulator) error {
 
 	wg.Wait()
 
+	return nil
+}
+
+func (s *CustomMssql) checkServer(server string, acc telegraf.Accumulator) error {
+	var fields = make(map[string]interface{})
+	var tags = make(map[string]string)
+
+	db, err := sql.Open("mssql", server)
+	if err != nil {
+		fields["value"] = 0
+		acc.AddFields("sqlserver_connection_is_alive", fields, tags, time.Now())
+		return err
+	}
+
+	ctx := context.Background()
+	err = db.PingContext(ctx)
+	if err != nil {
+		fields["value"] = 0
+		acc.AddFields("sqlserver_connection_is_alive", fields, tags, time.Now())
+		return err
+	} else {
+		fields["value"] = 1
+		acc.AddFields("sqlserver_connection_is_alive", fields, tags, time.Now())
+	}
+
+	defer db.Close()
 	return nil
 }
 
@@ -161,4 +189,3 @@ func init() {
 		return &CustomMssql{Servers: []string{defaultServer}}
 	})
 }
-
