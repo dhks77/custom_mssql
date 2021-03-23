@@ -12,9 +12,9 @@ func (c *CustomMssql) gatherMem(acc telegraf.Accumulator) error {
 	}
 
 	fields := map[string]interface{}{
-		"memory_usage": 100 - 100 * float64(vm.Available) / float64(vm.Total),
+		"value": 100 - 100 * float64(vm.Available) / float64(vm.Total),
 	}
 
-	acc.AddGauge(pluginName, fields, nil)
+	acc.AddGauge("memory_usage", fields, nil)
 	return nil
 }

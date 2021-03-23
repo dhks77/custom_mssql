@@ -46,10 +46,10 @@ func (c *CustomMssql) gatherCpuUsage(acc telegraf.Accumulator) error {
 		}
 
 		fields := map[string]interface{}{
-			"cpu_usage": 100 - 100 * (cts.Idle - lastCts.Idle) / totalDelta,
+			"value": 100 - 100 * (cts.Idle - lastCts.Idle) / totalDelta,
 		}
 
-		acc.AddGauge(pluginName, fields, tags, now)
+		acc.AddGauge("cpu_usage", fields, tags, now)
 	}
 
 	c.setLastStats(times)

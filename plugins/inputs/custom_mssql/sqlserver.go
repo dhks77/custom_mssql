@@ -13,7 +13,7 @@ import (
 
 func (c *CustomMssql) gatherSqlServer(acc telegraf.Accumulator) error {
 	var wg sync.WaitGroup
-	query := Query{ScriptName: "SQLServerLogBackupSize-CustomMssql", Script: sqlServerLogBackupSize, ResultByRow: false}
+	query := Query{ScriptName: "SQLServerLogBackupSize", Script: sqlServerLogBackupSize, ResultByRow: false}
 
 	for _, server := range c.Servers {
 		acc.AddError(c.checkServer(server, acc))
