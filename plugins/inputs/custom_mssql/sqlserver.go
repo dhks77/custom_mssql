@@ -132,7 +132,7 @@ func (c *CustomMssql) accRow(query Query, acc telegraf.Accumulator, row scanner)
 			}
 		}
 		// add fields to Accumulator
-		acc.AddFields(pluginName, fields, tags, time.Now())
+		acc.AddFields(measurement, fields, tags, time.Now())
 	}
 	return nil
 }
