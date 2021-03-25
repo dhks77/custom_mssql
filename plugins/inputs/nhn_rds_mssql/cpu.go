@@ -1,4 +1,4 @@
-package custom_mssql
+package nhn_rds_mssql
 
 import (
 	"fmt"
@@ -46,7 +46,7 @@ func (c *CustomMssql) gatherCpuUsage(acc telegraf.Accumulator) error {
 		}
 
 		fields := map[string]interface{}{
-			"value": 100 - 100 * (cts.Idle - lastCts.Idle) / totalDelta,
+			"value": 100 - 100*(cts.Idle-lastCts.Idle)/totalDelta,
 		}
 
 		acc.AddGauge("cpu_usage", fields, tags, now)

@@ -7,7 +7,7 @@ import (
 	"time"
 
 	// TODO: import your plugins
-	_ "github.com/dhks77/custom_mssql/plugins/inputs/custom_mssql"
+	_ "github.com/dhks77/nhn_rds_mssql/plugins/inputs/nhn_rds_mssql"
 
 	"github.com/influxdata/telegraf/plugins/common/shim"
 )

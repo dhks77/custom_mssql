@@ -1,4 +1,4 @@
-package custom_mssql
+package nhn_rds_mssql
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ func (c *CustomMssql) gatherMem(acc telegraf.Accumulator) error {
 	}
 
 	fields := map[string]interface{}{
-		"value": 100 - 100 * float64(vm.Available) / float64(vm.Total),
+		"value": 100 - 100*float64(vm.Available)/float64(vm.Total),
 	}
 
 	acc.AddGauge("memory_usage", fields, nil)

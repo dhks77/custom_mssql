@@ -1,4 +1,4 @@
-module github.com/dhks77/custom_mssql
+module github.com/dhks77/nhn_rds_mssql
 
 go 1.16
 

@@ -1,4 +1,4 @@
-package custom_mssql
+package nhn_rds_mssql
 
 import (
 	_ "github.com/denisenkom/go-mssqldb"
@@ -9,7 +9,7 @@ import (
 	"log"
 )
 
-const pluginName = "custom_mssql"
+const pluginName = "nhn_rds_mssql"
 
 // CustomMssql struct
 type CustomMssql struct {

@@ -1,4 +1,4 @@
-package custom_mssql
+package nhn_rds_mssql
 
 import (
 	"context"

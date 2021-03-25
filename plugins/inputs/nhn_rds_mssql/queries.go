@@ -1,4 +1,4 @@
-package custom_mssql
+package nhn_rds_mssql
 
 import (
 	_ "github.com/denisenkom/go-mssqldb" // go-mssqldb initialization
